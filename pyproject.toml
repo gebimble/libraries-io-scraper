@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "libraries-io-scraper"
+version = "0.1.0"
+description = ""
+authors = ["Joe Beaver <joseph.beaver@gmail.com>"]
+readme = "README.md"
+packages = [{include = "libraries_io_scraper"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+requests = "^2.31.0"
+pydantic-settings = "^2.0.2"
+loguru = "^0.7.0"
+
+
+[tool.poetry.group.dev.dependencies]
+python-dotenv = "^1.0.0"
+pydantic = "^2.1.1"
+ruff = "^0.0.280"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
