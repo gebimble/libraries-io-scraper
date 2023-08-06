@@ -15,14 +15,16 @@ BASE_URL = 'https://libraries.io/api/'
 @wait_a_second
 def get_project_data(name: str, platform: str) -> dict[str, Any]:
     return requests.get(
-        BASE_URL + f"{platform}/{parse.quote(name, safe='')}?api_key={settings.API_KEY}"
+        BASE_URL + f"{platform}/{parse.quote(name, safe='')}?"
+            f"api_key={settings.API_KEY}"
     ).json()
 
 
 @wait_a_second
 def get_project_sourcerank(name: str, platform: str) -> dict[str, Any]:
     return requests.get(
-        BASE_URL + f"{platform}/{parse.quote(name, safe='')}/sourcerank?api_key={settings.API_KEY}"
+        BASE_URL + f"{platform}/{parse.quote(name, safe='')}/"
+        f"sourcerank?api_key={settings.API_KEY}"
     ).json()
 
 
