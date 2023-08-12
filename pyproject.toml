@@ -11,12 +11,18 @@ python = "^3.11"
 requests = "^2.31.0"
 pydantic-settings = "^2.0.2"
 loguru = "^0.7.0"
+pyyaml = "^6.0.1"
+pydantic = "^2.1.1"
 
 
 [tool.poetry.group.dev.dependencies]
 python-dotenv = "^1.0.0"
 pydantic = "^2.1.1"
 ruff = "^0.0.280"
+ipython = "^8.14.0"
+pytest = "^7.4.0"
+pytest-mock = "^3.11.1"
+pytest-cov = "^4.1.0"
 
 [build-system]
 requires = ["poetry-core"]

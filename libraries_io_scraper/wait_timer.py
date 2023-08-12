@@ -4,7 +4,7 @@ import functools
 from loguru import logger  # type: ignore
 
 
-def wait_a_second(func):
+def wait_a_second(func):  # pragma: no cover
 
     @functools.wraps(func)
     def wrapper_wait_a_second(*args, **kwargs):
