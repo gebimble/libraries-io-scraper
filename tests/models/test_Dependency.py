@@ -44,4 +44,4 @@ class TestDependency:
         dep.get_sourcerank('pypi')
 
         assert get_sourcerank_mock.return_value.ok
-        assert dep.sourcerank.follows_semver == 0
+        assert dep.sourcerank["follows_semver"] == 0

@@ -26,28 +26,6 @@ class Dependency(BaseModel):
         if not response.ok:
             return None
 
-        self.sourcerank = SourceRank(**response.json())
+        self.sourcerank = response.json()
 
         return None
-
-
-class SourceRank(BaseModel):
-    basic_info_present: int
-    repository_present: int
-    readme_present: int
-    license_present: int
-    versions_present: int
-    follows_semver: int
-    recent_release: int
-    not_brand_new: int
-    one_point_oh: int
-    dependent_projects: int
-    dependent_repositories: int
-    stars: int
-    contributors: int
-    subscribers: int
-    all_prereleases: int
-    any_outdated_dependencies: int
-    is_deprecated: int
-    is_unmaintained: int
-    is_removed: int
