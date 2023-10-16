@@ -14,11 +14,6 @@ class NodePackageJson(TypedDict):
 
 
 
-SEMVER_PATTERN = re.compile(
-    r"(\w*)([<>=!~^])((0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?)")
-
-
-
 def parse_node_dependencies_file(dependencies: Path) -> dict[str, list[Dependency]]:
     dependencies_json: NodePackageJson = json.load(open(dependencies))
     return {"dependencies":[Dependency(name=d, version=dependencies_json["dependencies"][d])  for d in dependencies_json["dependencies"].keys()],
