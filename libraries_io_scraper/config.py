@@ -8,7 +8,7 @@ load_dotenv()
 class Settings(BaseSettings):
     API_KEY: str
 
-    model_config = SettingsConfigDict(env_file='.env')
+    model_config = SettingsConfigDict(env_file=".env")
 
 
 settings = Settings()

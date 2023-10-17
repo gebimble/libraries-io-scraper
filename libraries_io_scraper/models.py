@@ -9,19 +9,16 @@ class Dependency(BaseModel):
     version: str
     sourcerank: dict[str, int] = None
 
-    @field_validator('version')
+    @field_validator("version")
     def set_safe_version(cls, version: str) -> str:
-        return parse.quote(version, safe='')
+        return parse.quote(version, safe="")
 
-    @field_validator('name')
+    @field_validator("name")
     def set_safe_name(cls, name: str) -> str:
-        return parse.quote(name, safe='')
+        return parse.quote(name, safe="")
 
     def get_sourcerank(self, platform: str) -> None:
-        response = get_project_sourcerank(
-            self.name,
-            platform
-        )
+        response = get_project_sourcerank(self.name, platform)
 
         if not response.ok:
             return None

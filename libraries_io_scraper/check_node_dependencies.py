@@ -1,13 +1,12 @@
-
-
-
 import argparse
 from pathlib import Path
 from main import get_dependencies_sourcerank_node
 from node_dependency_operations import parse_node_dependencies_file
 
 parser = argparse.ArgumentParser()
-parser.add_argument("dependencies", type=Path, help="Relative location of your package.json file")
+parser.add_argument(
+    "dependencies", type=Path, help="Relative location of your package.json file"
+)
 
 args = parser.parse_args()
 
