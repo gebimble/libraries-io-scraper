@@ -1,10 +1,8 @@
 import json
-import re
 from pathlib import Path
 
-import yaml
 from typing import TypedDict
-from libraries_io_scraper.models import Dependency
+from models import Dependency
 
 class NodePackageJson(TypedDict):
     name: str
