@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 from typing import TypedDict
-from models import Dependency
+from libraries_io_scraper.models import Dependency
 
 
 class NodePackageJson(TypedDict):

@@ -4,8 +4,8 @@ from pprint import pprint as pp
 
 import requests  # type: ignore
 
-from config import settings
-from wait_timer import wait_a_second
+from libraries_io_scraper.config import settings
+from libraries_io_scraper.wait_timer import wait_a_second
 
 
 BASE_URL = "https://libraries.io/api/"
