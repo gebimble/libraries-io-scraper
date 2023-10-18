@@ -1,0 +1,9 @@
+{% set id = 1 %}
+| Name  | ver| Rank |
+|-------|----|------|
+
+|{% for dependency in dependencies %} {{ node }} 
+| {dependency.name} | {dependency.version} |{dependency.sourcerank} |  
+{% endfor %}
+
+{% endfor %}
