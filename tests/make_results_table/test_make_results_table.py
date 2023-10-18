@@ -27,7 +27,7 @@ class TestMakeResultsTable:
     @patch('builtins.open', new_callable=mock_open())
     def test_writes_the_output_to_a_markdown_file(self, mock_open_file):
 
-            write_template_to_file("")
+            write_template_to_file("some text")
 
             mock_open_file.assert_called_once_with('dependency_ratings.md', 'w')
-            mock_open_file.return_value.__enter__().write.assert_called_once_with('')
+            mock_open_file.return_value.__enter__().write.assert_called_once_with('some text')
