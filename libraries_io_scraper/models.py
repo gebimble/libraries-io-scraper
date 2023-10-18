@@ -1,7 +1,7 @@
 from urllib import parse
 from pydantic import BaseModel, field_validator
 
-from api_operations import get_project_sourcerank
+from libraries_io_scraper.api_operations import get_project_sourcerank
 
 
 class Dependency(BaseModel):
