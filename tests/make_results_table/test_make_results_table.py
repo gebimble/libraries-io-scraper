@@ -13,15 +13,15 @@ class TestMakeResultsTable:
     def test_it_renders_a_valid_markdown_table(self):
 
         want = """
-| Name  | Version | Rating |
-|-------|----|------|
-| test | 123 |None |
-| test2 | 567 |None |
+| Name  | Version | Dependency Type |Rating |
+|-------|----|------|--------|
+| test | 123 | dependency |None |
+| test2 | 567 | dependency |None |
 """
 
 
         test_dependencies = [Dependency(name="test", version = "123"), Dependency(name="test2", version = "567")]
-        got = populate_jinja_template(test_dependencies)
+        got = populate_jinja_template({"dependency": test_dependencies})
         assert got == want
 
     @patch('builtins.open', new_callable=mock_open())
