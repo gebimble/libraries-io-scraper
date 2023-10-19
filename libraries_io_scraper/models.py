@@ -25,7 +25,7 @@ class Dependency(BaseModel):
         return parse.quote(self.name, safe="")
 
     def get_sourcerank(self, platform: str) -> dict[str, int]:
-        response = get_project_sourcerank(self.name, platform)
+        response = get_project_sourcerank(self.safe_name, platform)
 
         if not response.ok:  # type: ignore
             raise Warning(f"Could not find {self.name} v{self.version} on {platform}")
