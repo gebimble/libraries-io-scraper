@@ -1,5 +1,5 @@
 from urllib import parse
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, field_validator, computed_field
 
 from libraries_io_scraper.api_operations import get_project_sourcerank
 
@@ -7,22 +7,29 @@ from libraries_io_scraper.api_operations import get_project_sourcerank
 class Dependency(BaseModel):
     name: str
     version: str
-    sourcerank: dict[str, int] = None
+    sourcerank: dict[str, int] = None  # type: ignore
 
     @field_validator("version")
-    def set_safe_version(cls, version: str) -> str:
-        return parse.quote(version, safe="")
+    def check_safe_version(cls, version: str) -> str:
+        parse.quote(version, safe="")
+        return version
 
     @field_validator("name")
-    def set_safe_name(cls, name: str) -> str:
-        return parse.quote(name, safe="")
+    def check_safe_name(cls, name: str) -> str:
+        parse.quote(name, safe="")
+        return name
 
-    def get_sourcerank(self, platform: str) -> None:
-        response = get_project_sourcerank(self.name, platform)
+    @computed_field
+    @property
+    def safe_name(self) -> str:
+        return parse.quote(self.name, safe="")
 
-        if not response.ok:
-            return None
+    def get_sourcerank(self, platform: str) -> dict[str, int]:
+        response = get_project_sourcerank(self.safe_name, platform)
 
-        self.sourcerank = response.json()
+        if not response.ok:  # type: ignore
+            raise Warning(f"Could not find {self.name} v{self.version} on {platform}")
 
-        return None
+        self.sourcerank = response.json()  # type: ignore
+
+        return self.sourcerank

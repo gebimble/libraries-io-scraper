@@ -2,29 +2,27 @@ import json
 import pytest
 
 
-@pytest.fixture
-def reserved_characters() -> list[str]:
-    return [
-        "!",
-        "*",
-        "'",
-        "(",
-        ")",
-        ";",
-        ":",
-        "@",
-        "&",
-        "=",
-        "+",
-        "$",
-        ",",
-        "/",
-        "?",
-        "%",
-        "#",
-        "[",
-        "]",
-    ]
+RESERVED_CHARACTERS = [
+    "!",
+    "*",
+    "'",
+    "(",
+    ")",
+    ";",
+    ":",
+    "@",
+    "&",
+    "=",
+    "+",
+    "$",
+    ",",
+    "/",
+    "?",
+    "%",
+    "#",
+    "[",
+    "]",
+]
 
 
 @pytest.fixture
