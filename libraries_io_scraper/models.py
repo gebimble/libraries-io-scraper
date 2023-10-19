@@ -24,6 +24,11 @@ class Dependency(BaseModel):
     def safe_name(self) -> str:
         return parse.quote(self.name, safe="")
 
+    @computed_field
+    @property
+    def safe_version(self) -> str:
+        return parse.quote(self.version, safe="")
+
     def get_sourcerank(self, platform: str) -> dict[str, int]:
         response = get_project_sourcerank(self.safe_name, platform)
 
