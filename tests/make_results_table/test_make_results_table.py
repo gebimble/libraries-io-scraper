@@ -29,4 +29,3 @@ class TestMakeResultsTable:
         mock_open_file.return_value.__enter__().write.assert_called_once_with(
             "some text"
         )
-

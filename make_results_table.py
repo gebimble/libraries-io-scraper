@@ -18,5 +18,5 @@ def populate_jinja_template(dependencies: dict[str, list[Dependency]]) -> str:
 
 
 def write_template_to_file(output: str):
-    with open("dependency_ratings.md", "w") as f:
+    with open('dependency_ratings.md', 'w') as f:
         f.write(output)
