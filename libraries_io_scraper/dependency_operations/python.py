@@ -1,6 +1,7 @@
+from pathlib import Path
 import yaml
 
-from libraries_io_scraper.dependency_operations import Dependency, Path
+from libraries_io_scraper.dependency_operations import Dependency
 from libraries_io_scraper.dependency_operations import parse_dependency_string
 
 

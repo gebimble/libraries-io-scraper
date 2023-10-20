@@ -10,4 +10,7 @@ SEMVER_PATTERN = re.compile(
 
 def parse_dependency_string(dependency: str) -> Dependency:
     match = SEMVER_PATTERN.match(dependency)
-    return Dependency(name=match.group(1), version=match.group(3))
+    return Dependency(
+        name=match.group(1),  # type: ignore[union-attr]
+        version=match.group(3),  # type: ignore[union-attr]
+    )

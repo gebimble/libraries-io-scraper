@@ -18,7 +18,7 @@ def wait_a_second(func):  # pragma: no cover
         if (remaining := 1 - elapsed) > 0:
             logger.debug(
                 f"{remaining} remaining to prevent excessive requests."
-            )
+            )  # noqa: E501
             sleep(remaining)
 
         logger.debug("Function executed.")

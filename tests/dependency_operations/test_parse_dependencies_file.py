@@ -1,5 +1,7 @@
 from libraries_io_scraper.models import Dependency
-from libraries_io_scraper.dependency_operations.python import parse_dependencies_file  # noqa: E501
+from libraries_io_scraper.dependency_operations.python import (
+    parse_dependencies_file,
+)  # noqa: E501
 
 
 class TestParseDependenciesFile:

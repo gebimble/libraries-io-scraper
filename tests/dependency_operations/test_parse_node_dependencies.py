@@ -1,5 +1,7 @@
 from libraries_io_scraper.models import Dependency
-from libraries_io_scraper.dependency_operations.node import parse_dependencies_file  # noqa: E501
+from libraries_io_scraper.dependency_operations.node import (
+    parse_dependencies_file,
+)  # noqa: E501
 
 
 class TestParseDependenciesFile:
@@ -54,8 +56,9 @@ class TestParseDependenciesFile:
                 Dependency(name="@emotion/styled", version="^11.10.5"),
             ],
             "tools": [
-                Dependency(name="@testing-library/jest-dom",
-                           version="^5.16.5"),
+                Dependency(
+                    name="@testing-library/jest-dom", version="^5.16.5"
+                ),  # noqa: E501
                 Dependency(name="@testing-library/react", version="^13.4.0"),
             ],
         }

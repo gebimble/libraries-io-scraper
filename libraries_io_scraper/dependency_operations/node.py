@@ -17,16 +17,14 @@ def parse_dependencies_file(dependencies: Path) -> dict[str, list[Dependency]]:
     return {
         "dependencies": [
             Dependency(
-                name=d,
-                version=dependencies_json["dependencies"][d]
-            )
+                name=d, version=dependencies_json["dependencies"][d]
+            )  # noqa: E501
             for d in dependencies_json["dependencies"].keys()
         ],
         "tools": [
             Dependency(
-                name=d,
-                version=dependencies_json["devDependencies"][str(d)]
-            )
+                name=d, version=dependencies_json["devDependencies"][str(d)]
+            )  # noqa: E501
             for d in dependencies_json["devDependencies"].keys()
         ],
     }
