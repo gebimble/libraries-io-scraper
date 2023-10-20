@@ -12,7 +12,7 @@ class NodePackageJson(TypedDict):
     devDependencies: dict
 
 
-def parse_node_dependencies_file(dependencies: Path) -> dict[str, list[Dependency]]:
+def parse_dependencies_file(dependencies: Path) -> dict[str, list[Dependency]]:
     dependencies_json: NodePackageJson = json.load(open(dependencies))
     return {
         "dependencies": [
@@ -20,7 +20,8 @@ def parse_node_dependencies_file(dependencies: Path) -> dict[str, list[Dependenc
             for d in dependencies_json["dependencies"].keys()
         ],
         "tools": [
-            Dependency(name=d, version=dependencies_json["devDependencies"][str(d)])
+            Dependency(
+                name=d, version=dependencies_json["devDependencies"][str(d)])
             for d in dependencies_json["devDependencies"].keys()
         ],
     }
