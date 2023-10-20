@@ -1,5 +1,5 @@
 from libraries_io_scraper.models import Dependency
-from libraries_io_scraper.dependency_operations import parse_dependencies_file
+from libraries_io_scraper.dependency_operations.python import parse_dependencies_file
 
 
 class TestParseDependenciesFile:

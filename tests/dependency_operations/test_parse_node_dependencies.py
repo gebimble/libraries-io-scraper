@@ -1,5 +1,5 @@
 from libraries_io_scraper.models import Dependency
-from libraries_io_scraper.node_dependency_operations import parse_node_dependencies_file
+from libraries_io_scraper.dependency_operations.node import parse_node_dependencies_file
 
 
 class TestParseNodeDependenciesFile:
@@ -19,7 +19,7 @@ class TestParseNodeDependenciesFile:
         fake_file.write_text("fake")
 
         return_value = parse_node_dependencies_file(fake_file)
-        print(return_value)
+
         assert return_value == {
             "dependencies": [
                 Dependency(name="@emotion/react", version="^11.10.5"),
@@ -47,14 +47,15 @@ class TestParseNodeDependenciesFile:
         fake_file.write_text("fake")
 
         return_value = parse_node_dependencies_file(fake_file)
-        print(return_value)
+
         assert return_value == {
             "dependencies": [
                 Dependency(name="@emotion/react", version="^11.10.5"),
                 Dependency(name="@emotion/styled", version="^11.10.5"),
             ],
             "tools": [
-                Dependency(name="@testing-library/jest-dom", version="^5.16.5"),
+                Dependency(name="@testing-library/jest-dom",
+                           version="^5.16.5"),
                 Dependency(name="@testing-library/react", version="^13.4.0"),
             ],
         }
