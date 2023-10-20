@@ -34,7 +34,8 @@ class Dependency(BaseModel):
 
         if not response.ok:  # type: ignore
             raise Warning(
-                f"Could not find {self.name} v{self.version} on {platform}")
+                f"Could not find {self.name} v{self.version} on {platform}"
+            )
 
         self.sourcerank = response.json()  # type: ignore
 
