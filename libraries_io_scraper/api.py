@@ -18,16 +18,19 @@ def get_project_data(
         BASE_URL
         + f"{platform}/{name}/{version}?"
         + f"api_key={settings.API_KEY}"
-    )
-# fmt: on
-
-
-@wait_a_second
-def get_project_sourcerank(name: str, platform: str) -> requests.Response:
-    return requests.get(
-        BASE_URL
-        # fmt: off
-        + f"{platform}/{name}?"
-        + f"sourcerank?api_key={settings.API_KEY}"
         # fmt: on
     )
+
+
+# fmt: off
+@wait_a_second
+def get_project_sourcerank(
+        name: str,
+        platform: str
+) -> requests.Response:
+    return requests.get(
+        BASE_URL
+        + f"{platform}/{name}?"
+        + f"sourcerank?api_key={settings.API_KEY}"
+    )
+# fmt: on

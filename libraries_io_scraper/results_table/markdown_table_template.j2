@@ -1,5 +1,5 @@
 {% set id = 1 %}
 | Name  | Version | Dependency Type |Rating |
 | --- | --- | --- | --- |
-{% for key, value in dependencies.items() %}{% for dependency in value %}| {{dependency.name.strip()}} | {{dependency.version}} | {{key}} | {{None if not dependency.sourcerank else dependency.sourcerank.get('rank')}} |
+{% for key, value in dependencies.items() %}{% for dependency in value %}| {{dependency.name.strip()}} | {{dependency.version}} | {{key}} | {{None if not dependency.sourcerank else dependency.sourcerank}} |
 {% endfor %}{% endfor %}

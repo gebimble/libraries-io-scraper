@@ -1,3 +1,4 @@
+from typing import Optional
 from urllib import parse
 from pydantic import BaseModel, field_validator, computed_field
 
@@ -6,7 +7,7 @@ from libraries_io_scraper.api import get_project_sourcerank
 
 class Dependency(BaseModel):
     name: str
-    version: str
+    version: Optional[str] = None  # type: ignore
     sourcerank: dict[str, int] = None  # type: ignore
 
     @field_validator("version")
