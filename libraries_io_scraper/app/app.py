@@ -1,4 +1,3 @@
-from pathlib import Path
 from typing import Callable
 
 import click
@@ -13,7 +12,7 @@ def libioscrape():
 
 
 def dependencies_to_markdown_report(
-    dependency_file: Path, output: str, parser: Callable, platform: str
+    dependency_file: str, output: str, parser: Callable, platform: str
 ) -> None:
     dependencies = parser(dependencies=dependency_file)
 
@@ -29,7 +28,7 @@ def dependencies_to_markdown_report(
 @libioscrape.command()
 @click.argument("dependency_file")
 @click.option("-o", "--output")
-def py(dependency_file: Path, output: str = "./dependencies.md"):
+def py(dependency_file: str, output: str = "./dependencies.md"):
     dependencies_to_markdown_report(
         dependency_file, output, python.parse_dependencies_file, "pypi"
     )
@@ -39,7 +38,7 @@ def py(dependency_file: Path, output: str = "./dependencies.md"):
 @libioscrape.command()
 @click.argument("dependency_file")
 @click.option("-o", "--output")
-def npm(dependency_file: Path, output: str = "./dependencies.md"):
+def npm(dependency_file: str, output: str = "./dependencies.md"):
     dependencies_to_markdown_report(
         dependency_file, output, node.parse_dependencies_file, "npm"
     )
