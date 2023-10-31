@@ -9,7 +9,7 @@ from libraries_io_scraper.make_results_table import (
 class TestMakeResultsTable:
     def test_it_renders_a_valid_markdown_table(self):
         want = """
-| Name  | Version | Dependency Type |Rating |
+| Name  | Version | Dependency Type | Rating |
 | --- | --- | --- | --- |
 | test | 123 | dependency | None |
 | test2 | 567 | dependency | None |
@@ -19,7 +19,7 @@ class TestMakeResultsTable:
         test_dependencies = [
             Dependency(name="test", version="123"),
             Dependency(name="test2", version="567"),
-            Dependency(name="@types/node ", version="16.18.59"),
+            Dependency(name="@types/node", version="16.18.59"),
         ]
         got = populate_jinja_template({"dependency": test_dependencies})
         assert got == want
@@ -32,3 +32,18 @@ class TestMakeResultsTable:
         mock_open_file.return_value.__enter__().write.assert_called_once_with(
             "some text"
         )
+
+    def test_model_api_integration(self):
+        want = """
+| Name  | Version | Dependency Type | Rating |
+| --- | --- | --- | --- |
+| @types/node | 16.18.59 | dependency | 34 |
+"""
+        test_dependencies = [
+            Dependency(name="@types/node", version="16.18.59"),
+        ]
+
+        test_dependencies[0].get_sourcerank("npm")
+
+        got = populate_jinja_template({"dependency": test_dependencies})
+        assert got == want

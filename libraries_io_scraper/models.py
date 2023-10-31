@@ -30,14 +30,18 @@ class Dependency(BaseModel):
     def safe_version(self) -> str:
         return parse.quote(self.version, safe="")
 
+    @computed_field  # type: ignore[misc]
+    @property
+    def sourcerank_score(self) -> str:
+        return sum([x for x in self.sourcerank.values()])
+
     def get_sourcerank(self, platform: str) -> dict[str, int]:
         response = get_project_sourcerank(self.safe_name, platform)
 
         if not response.ok:  # type: ignore
-            raise Warning(
-                f"Could not find {self.name} v{self.version} on {platform}"
-            )  # noqa: E501
+            breakpoint()
+            raise Warning(f"Could not find {self.name} v{self.version} on {platform}")  # noqa: E501
 
         self.sourcerank = response.json()  # type: ignore
 
-        return self.sourcerank
+        return self.sourcerank_score
