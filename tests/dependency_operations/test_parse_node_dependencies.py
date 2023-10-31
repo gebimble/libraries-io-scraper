@@ -1,8 +1,10 @@
 from libraries_io_scraper.models import Dependency
-from libraries_io_scraper.dependency_operations.node import parse_node_dependencies_file
+from libraries_io_scraper.dependency_operations.node import (
+    parse_dependencies_file,
+)  # noqa: E501
 
 
-class TestParseNodeDependenciesFile:
+class TestParseDependenciesFile:
     def test_it_parses_dependencies(self, mocker, tmp_path):
         json_loads_mock = mocker.patch("json.loads")
         json_loads_mock.return_value = {
@@ -18,7 +20,7 @@ class TestParseNodeDependenciesFile:
         fake_file = tmp_path / "fake_file.yaml"
         fake_file.write_text("fake")
 
-        return_value = parse_node_dependencies_file(fake_file)
+        return_value = parse_dependencies_file(fake_file)
 
         assert return_value == {
             "dependencies": [
@@ -46,7 +48,7 @@ class TestParseNodeDependenciesFile:
         fake_file = tmp_path / "fake_file.yaml"
         fake_file.write_text("fake")
 
-        return_value = parse_node_dependencies_file(fake_file)
+        return_value = parse_dependencies_file(fake_file)
 
         assert return_value == {
             "dependencies": [
@@ -54,8 +56,9 @@ class TestParseNodeDependenciesFile:
                 Dependency(name="@emotion/styled", version="^11.10.5"),
             ],
             "tools": [
-                Dependency(name="@testing-library/jest-dom",
-                           version="^5.16.5"),
+                Dependency(
+                    name="@testing-library/jest-dom", version="^5.16.5"
+                ),  # noqa: E501
                 Dependency(name="@testing-library/react", version="^13.4.0"),
             ],
         }

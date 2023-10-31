@@ -1,3 +1,4 @@
+from typing import Optional
 from urllib import parse
 from pydantic import BaseModel, field_validator, computed_field
 
@@ -6,7 +7,7 @@ from libraries_io_scraper.api import get_project_sourcerank
 
 class Dependency(BaseModel):
     name: str
-    version: str
+    version: Optional[str] = None  # type: ignore
     sourcerank: dict[str, int] = None  # type: ignore
 
     @field_validator("version")
@@ -19,12 +20,12 @@ class Dependency(BaseModel):
         parse.quote(name, safe="")
         return name
 
-    @computed_field
+    @computed_field  # type: ignore[misc]
     @property
     def safe_name(self) -> str:
         return parse.quote(self.name, safe="")
 
-    @computed_field
+    @computed_field  # type: ignore[misc]
     @property
     def safe_version(self) -> str:
         return parse.quote(self.version, safe="")
@@ -34,7 +35,8 @@ class Dependency(BaseModel):
 
         if not response.ok:  # type: ignore
             raise Warning(
-                f"Could not find {self.name} v{self.version} on {platform}")
+                f"Could not find {self.name} v{self.version} on {platform}"
+            )  # noqa: E501
 
         self.sourcerank = response.json()  # type: ignore
 

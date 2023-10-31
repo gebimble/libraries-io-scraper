@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Joe Beaver <joseph.beaver@gmail.com>"]
 readme = "README.md"
-packages = [{include = "libraries_io_scraper"}]
+packages = [{ include = "libraries_io_scraper" }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -14,6 +14,9 @@ loguru = "^0.7.0"
 pyyaml = "^6.0.1"
 pydantic = "^2.1.1"
 jinja2 = "^3.1.2"
+click = "^8.1.7"
+types-pyyaml = "^6.0.12.12"
+types-requests = "^2.31.0.10"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -24,7 +27,11 @@ ipython = "^8.14.0"
 pytest = "^7.4.0"
 pytest-mock = "^3.11.1"
 pytest-cov = "^4.1.0"
+mypy = "^1.6.1"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[project.scripts]
+lioscrape = "libraries_io_scraper.app.app:libioscraper"

@@ -1,5 +1,7 @@
 from libraries_io_scraper.models import Dependency
-from libraries_io_scraper.dependency_operations.python import parse_dependencies_file
+from libraries_io_scraper.dependency_operations.python import (
+    parse_dependencies_file,
+)  # noqa: E501
 
 
 class TestParseDependenciesFile:
@@ -15,7 +17,6 @@ class TestParseDependenciesFile:
             ],
         }
 
-        platform = "pypi"
         fake_file = tmp_path / "fake_file.yaml"
         fake_file.write_text("fake")
 
@@ -23,8 +24,8 @@ class TestParseDependenciesFile:
 
         assert return_value == {
             "dependencies": [
-                Dependency(name="python", version="3.8.0", platform=platform),
-                Dependency(name="numpy", version="1.20.0", platform=platform),
+                Dependency(name="python", version="3.8.0"),
+                Dependency(name="numpy", version="1.20.0"),
             ],
-            "tools": [Dependency(name="black", version="0.19.0", platform=platform)],
+            "tools": [Dependency(name="black", version="0.19.0")],
         }
