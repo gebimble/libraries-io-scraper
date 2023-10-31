@@ -18,7 +18,7 @@ def write_template_to_file(output: str):
     return None
 
 
-def make_results_table(dependencies: dict[str, list[Dependency]], output: str):
+def make_results_table(dependencies: dict[str, list[Dependency]]):
     output = populate_jinja_template(dependencies=dependencies)
     write_template_to_file(output=output)
     return None

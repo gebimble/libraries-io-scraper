@@ -3,6 +3,7 @@ from libraries_io_scraper.models import Dependency
 from libraries_io_scraper.make_results_table import (
     populate_jinja_template,
     write_template_to_file,
+    make_results_table,
 )
 
 
@@ -47,3 +48,22 @@ class TestMakeResultsTable:
 
         got = populate_jinja_template({"dependency": test_dependencies})
         assert got == want
+
+    @patch("builtins.open", new_callable=mock_open())
+    def test_make_results_table(self, mock_open_file, mocker):
+        populate_jinja_template_mock = mocker.patch(
+            "libraries_io_scraper.make_results_table.populate_jinja_template"
+        )
+
+        populate_jinja_template_mock.return_value = "stuff"
+
+        test_dependencies = [
+            Dependency(name="@types/node", version="16.18.59"),
+        ]
+
+        make_results_table(test_dependencies)
+
+        mock_open_file.assert_called_once_with("dependency_ratings.md", "w")
+        mock_open_file.return_value.__enter__().write.assert_called_once_with(
+            populate_jinja_template_mock.return_value
+        )

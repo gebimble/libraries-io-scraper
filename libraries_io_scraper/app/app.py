@@ -7,7 +7,7 @@ from libraries_io_scraper.make_results_table import make_results_table
 
 
 @click.group()
-def libioscrape():
+def libioscrape():  # pragma: no cover
     return None
 
 

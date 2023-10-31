@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Joe Beaver <joseph.beaver@gmail.com>"]
 readme = "README.md"
-packages = [{ include = "libraries_io_scraper" }]
+packages = [{ include = "libraries_io_scraper", from = '.' }]
 
 [tool.poetry.dependencies]
 python = "^3.11"
@@ -35,3 +35,13 @@ build-backend = "poetry.core.masonry.api"
 
 [project.scripts]
 lioscrape = "libraries_io_scraper.app.app:libioscraper"
+
+[tool.pytest.ini_options]
+addopts = "--cov"
+
+[tool.coverage.run]
+source = ["libraries_io_scraper"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+show_missing = true
