@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 from typing import TypedDict
+from libraries_io_scraper.dependency_operations import DependenciesLists
 from libraries_io_scraper.models import Dependency
 
 
@@ -12,7 +13,7 @@ class NodePackageJson(TypedDict):
     devDependencies: dict
 
 
-def parse_node_dependencies_file(dependencies: Path) -> dict[str, list[Dependency]]:
+def parse_node_dependencies_file(dependencies: Path) -> DependenciesLists:
     dependencies_json: NodePackageJson = json.load(open(dependencies))
     return {
         "dependencies": [
