@@ -1,3 +1,4 @@
+import json
 from urllib import parse
 import warnings
 from pydantic import BaseModel, field_validator, computed_field
@@ -35,7 +36,7 @@ class Dependency(BaseModel):
 
         if not response.ok:  # type: ignore
             warnings.warn(
-                f"Could not find {self.name} version: {self.version} on {platform}"
+                f"Could not find {self.name} version: {self.version} on {platform}. Message: {str(response)}"
             )
         else:
             self.sourcerank = response.json()  # type: ignore

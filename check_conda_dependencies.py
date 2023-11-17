@@ -15,7 +15,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 parsed_dependencies = parse_conda_dependencies_file(dependencies=args.dependencies)
-[d.get_sourcerank("pip") for d in parsed_dependencies["tools"]]
-[d.get_sourcerank("pip") for d in parsed_dependencies["dependencies"]]
+[d.get_sourcerank("pypi") for d in parsed_dependencies["tools"]]
+[d.get_sourcerank("pypi") for d in parsed_dependencies["dependencies"]]
 
 make_results_table(parsed_dependencies)

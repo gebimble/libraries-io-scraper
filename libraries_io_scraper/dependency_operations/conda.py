@@ -35,12 +35,12 @@ def parse_conda_dependencies_file(dependencies: Path) -> DependenciesLists:
 
     for d in     all_deps :
         if (d):
-            print(d)
+
             chunks = re.split("[=<>]", d)
-            print(chunks)
+
             deps_list.append(
                 Dependency(
-                    name=chunks[0], version=chunks[-1] if len(chunks) != 1 else ""
+                    name=chunks[0], version=chunks[-1] if len(chunks) > 1 else ""
                 )
             )
 

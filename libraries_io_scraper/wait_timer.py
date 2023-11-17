@@ -15,7 +15,7 @@ def wait_a_second(func):  # pragma: no cover
         elapsed = perf_counter() - start
         logger.debug(f"Time elapsed: {elapsed}s.")
 
-        if (remaining := 1 - elapsed) > 0:
+        if (remaining := 10 - elapsed) > 0:
             logger.debug(f"{remaining} remaining to prevent excessive requests.")
             sleep(remaining)
 
