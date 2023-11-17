@@ -8,10 +8,7 @@ class TestParseDependenciesFile:
     def test_expected_behaviour(self, mocker, tmp_path):
         parsed_yaml_mock = mocker.patch("yaml.safe_load")
         parsed_yaml_mock.return_value = {
-            "dependencies": [
-                "python=3.8.0",
-                "numpy<1.20.0",
-            ],
+            "dependencies": ["python=3.8.0", "numpy<1.20.0", "scipy"],
             "tools": [
                 "black^0.19.0",
             ],
@@ -26,6 +23,7 @@ class TestParseDependenciesFile:
             "dependencies": [
                 Dependency(name="python", version="3.8.0"),
                 Dependency(name="numpy", version="1.20.0"),
+                Dependency(name="scipy"),
             ],
             "tools": [Dependency(name="black", version="0.19.0")],
         }
