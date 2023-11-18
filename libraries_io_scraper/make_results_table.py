@@ -1,9 +1,15 @@
 import jinja2
+from libraries_io_scraper.dependency_operations import DependenciesLists
 
 from libraries_io_scraper.models import Dependency
 
 
-def populate_jinja_template(dependencies: dict[str, list[Dependency]]) -> str:
+def make_results_table(dependencies: DependenciesLists):
+    output = populate_jinja_template(dependencies=dependencies)
+    write_template_to_file(output=output)
+
+
+def populate_jinja_template(dependencies: DependenciesLists) -> str:
     environment = jinja2.Environment(
         loader=jinja2.FileSystemLoader("libraries_io_scraper/results_table")
     )

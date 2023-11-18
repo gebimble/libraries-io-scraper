@@ -1,5 +1,6 @@
 from typing import Optional
 from urllib import parse
+import warnings
 from pydantic import BaseModel, field_validator, computed_field
 
 from libraries_io_scraper.api import get_project_sourcerank
@@ -39,9 +40,8 @@ class Dependency(BaseModel):
         response = get_project_sourcerank(self.safe_name, platform)
 
         if not response.ok:  # type: ignore
-            breakpoint()
-            raise Warning(f"Could not find {self.name} v{self.version} on {platform}")  # noqa: E501
+            warnings.warn(
+                f"Could not find {self.name} version: {self.version} on {platform}. Message: {str(response)}"
+            )
 
         self.sourcerank = response.json()  # type: ignore
-
-        return self.sourcerank_score
