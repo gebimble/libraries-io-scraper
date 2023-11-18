@@ -35,7 +35,7 @@ class Dependency(BaseModel):
     @computed_field  # type: ignore[misc]
     @property
     def sourcerank_score(self) -> str:
-        return sum([x for x in self.sourcerank.values()])
+        return sum(self.sourcerank.values())
 
     def get_sourcerank(self, platform: str) -> dict[str, int]:
         response = get_project_sourcerank(self.safe_name, platform)
@@ -44,5 +44,8 @@ class Dependency(BaseModel):
             logger.warning(
                 f"Could not find {self.name} version: {self.version} on {platform}. Message: {str(response)}"
             )
+            return None
 
         self.sourcerank = response.json()  # type: ignore
+
+        return None

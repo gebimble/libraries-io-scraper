@@ -15,13 +15,12 @@ def dependencies_to_markdown_report(
     dependency_file: str, output: str, parser: Callable, platform: str
 ) -> None:
     dependencies = parser(dependencies=dependency_file)
-    breakpoint()
 
     for deps in dependencies.values():
         for dep in deps:
             dep.get_sourcerank(platform)
 
-    make_results_table(dependencies, output=output)
+    make_results_table(dependencies, output_file=output)
 
     return None
 
