@@ -4,6 +4,9 @@ import functools
 from loguru import logger  # type: ignore
 
 
+WAIT_LENGTH = 1  # seconds
+
+
 def wait_a_second(func):  # pragma: no cover
     @functools.wraps(func)
     def wrapper_wait_a_second(*args, **kwargs):
@@ -15,10 +18,8 @@ def wait_a_second(func):  # pragma: no cover
         elapsed = perf_counter() - start
         logger.debug(f"Time elapsed: {elapsed}s.")
 
-        if (remaining := 1 - elapsed) > 0:
-            logger.debug(
-                f"{remaining} remaining to prevent excessive requests."
-            )  # noqa: E501
+        if (remaining := WAIT_LENGTH - elapsed) > 0:
+            logger.debug(f"{remaining} remaining to prevent excessive requests.")  # noqa: E501
             sleep(remaining)
 
         logger.debug("Function executed.")
