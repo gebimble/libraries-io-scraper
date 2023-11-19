@@ -38,7 +38,13 @@ class Dependency(BaseModel):
     @computed_field  # type: ignore[misc]
     @property
     def sourcerank_score(self) -> str:
-        return sum(self.sourcerank.values())
+        if not len(set([type(x) for x in self.sourcerank.values()])) == 1:
+            breakpoint()
+
+        return (
+            None if self.not_found else sum(
+                [x for x in self.sourcerank.values() if x])
+        )
 
     @computed_field
     @property
@@ -83,5 +89,5 @@ class Dependency(BaseModel):
         return None
 
     def get_information(self, platform: str) -> dict[str, int]:
-        self.get_api_call("sourcerank", platform, get_project_information)
+        self.get_api_call("information", platform, get_project_information)
         return None

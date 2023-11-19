@@ -10,7 +10,6 @@ WAIT_LENGTH = 1  # seconds
 def wait_a_second(func):  # pragma: no cover
     @functools.wraps(func)
     def wrapper_wait_a_second(*args, **kwargs):
-        logger.debug("Entering time manager.")
         start = perf_counter()
 
         return_value = func(*args, **kwargs)
@@ -22,8 +21,6 @@ def wait_a_second(func):  # pragma: no cover
             logger.debug(f"{remaining} remaining to prevent excessive requests.")  # noqa: E501
             sleep(remaining)
 
-        logger.debug("Function executed.")
-        logger.debug("Exiting time manager.")
         return return_value
 
     return wrapper_wait_a_second
