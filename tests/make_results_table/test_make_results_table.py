@@ -1,3 +1,5 @@
+import io
+
 from unittest.mock import patch, mock_open
 from libraries_io_scraper.models import Dependency
 from libraries_io_scraper.make_results_table import (
@@ -67,3 +69,27 @@ class TestMakeResultsTable:
         mock_open_file.return_value.__enter__().write.assert_called_once_with(
             populate_jinja_template_mock.return_value
         )
+
+    def test_it_renders_a_nondefault_valid_markdown_table(self, tmp_path):
+        want = """
+| test | 123 | None |
+| test2 | 567 | None |
+| @types/node | 16.18.59 | None |
+"""
+        new_template_content = """
+{% for key, value in dependencies.items() %}{% for dependency in value %}| {{dependency.name}} | {{dependency.version}} | {{None if not dependency.sourcerank else dependency.sourcerank_score}} |
+{% endfor %}{% endfor %}
+"""
+        new_template = tmp_path / "temp_tempalte.j2"
+        new_template.write_text(new_template_content)
+
+        test_dependencies = [
+            Dependency(name="test", version="123"),
+            Dependency(name="test2", version="567"),
+            Dependency(name="@types/node", version="16.18.59"),
+        ]
+
+        got = populate_jinja_template(
+            {"dependency": test_dependencies}, template=new_template
+        )
+        assert got == want

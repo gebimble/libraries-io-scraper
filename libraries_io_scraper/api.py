@@ -11,15 +11,14 @@ BASE_URL = "https://libraries.io/api/"
 
 # fmt: off
 @wait_a_second
-def get_project_data(
+def get_project_information(
         name: str,
-        version: str,
         platform: str
 ) -> requests.Response:
-    logger.debug(f"Getting project data for {name} {version} hosted on {platform} from libraries.io")
+    logger.debug(f"Getting project data for {name} hosted on {platform} from libraries.io")
     return requests.get(
         BASE_URL
-        + f"{platform}/{name}/{version}?"
+        + f"{platform}/{name}?"
         + f"api_key={settings.API_KEY}"
         # fmt: on
     )

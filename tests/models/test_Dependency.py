@@ -59,3 +59,5 @@ class TestDependency:
 
         assert get_sourcerank_mock.return_value.ok
         assert dep.sourcerank["follows_semver"] == 0
+
+    # TODO write test for unhappy response

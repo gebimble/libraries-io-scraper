@@ -1,16 +1,19 @@
 from typing import Optional
 from urllib import parse
+from requests import Response
 
 from pydantic import BaseModel, field_validator, computed_field
 from loguru import logger
 
-from libraries_io_scraper.api import get_project_sourcerank
+from libraries_io_scraper.api import get_project_sourcerank, get_project_information
 
 
 class Dependency(BaseModel):
     name: str
     version: Optional[str] = None  # type: ignore
     sourcerank: dict[str, int] = None  # type: ignore
+    information: dict[str, str] = None  # type: ignore
+    not_found: bool = False
 
     @field_validator("version")
     def check_safe_version(cls, version: str) -> str:
@@ -37,15 +40,48 @@ class Dependency(BaseModel):
     def sourcerank_score(self) -> str:
         return sum(self.sourcerank.values())
 
-    def get_sourcerank(self, platform: str) -> dict[str, int]:
-        response = get_project_sourcerank(self.safe_name, platform)
+    @computed_field
+    @property
+    def shortfalls(self) -> list[str]:
+        return [k for k, v in self.sourcerank.items() if v <= 0]
 
-        if not response.ok:  # type: ignore
-            logger.warning(
-                f"Could not find {self.name} version: {self.version} on {platform}. Message: {str(response)}"
-            )
+    def bad_response(self, response: Response, platform: str) -> None:
+        logger.warning(
+            f"Could not find {self.name}"
+            f" version: {self.version} on {platform}."
+            f" Message: {str(response)}"
+        )
+        self.not_found = True
+        return None
+
+    def not_found_response(self) -> None:
+        logger.warning(
+            f"{self.name} already established as unable to be found"
+            f" on libraries.io; skipping."
+        )
+        return None
+
+    def get_api_call(
+        self, attribute: str, platform: str, api_call: callable
+    ) -> dict[str, int]:
+        if self.not_found:
+            self.not_found_response()
             return None
 
-        self.sourcerank = response.json()  # type: ignore
+        response = api_call(self.safe_name, platform)
 
+        if not response.ok:  # type: ignore
+            self.bad_response(response, platform)
+            return None
+
+        setattr(self, attribute, response.json())  # type: ignore
+
+        return None
+
+    def get_sourcerank(self, platform: str) -> dict[str, int]:
+        self.get_api_call("sourcerank", platform, get_project_sourcerank)
+        return None
+
+    def get_information(self, platform: str) -> dict[str, int]:
+        self.get_api_call("sourcerank", platform, get_project_information)
         return None
