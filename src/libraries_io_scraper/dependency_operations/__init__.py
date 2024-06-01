@@ -1,5 +1,4 @@
 import re
-from pathlib import Path
 from typing import TypedDict
 
 from libraries_io_scraper.models import Dependency

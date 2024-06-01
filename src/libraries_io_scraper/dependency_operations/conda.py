@@ -39,8 +39,7 @@ def parse_dependencies_file(dependencies: Path) -> DependenciesLists:
 
             deps_list.append(
                 Dependency(
-                    name=chunks[0], version=chunks[-1] if len(
-                        chunks) > 1 else ""
+                    name=chunks[0], version=chunks[-1] if len(chunks) > 1 else ""
                 )
             )
 

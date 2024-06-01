@@ -190,4 +190,14 @@ pyrightconfig.json
 
 # project specific things
 data/
+docs/
+.structurizr/
+dependencies.md
+env.yaml
+env_backup.yaml
+poetry.lock
+requirements-dev.lock
+requirements.lock
+workspace.dsl
+workspace.json
 # End of https://www.toptal.com/developers/gitignore/api/linux,python

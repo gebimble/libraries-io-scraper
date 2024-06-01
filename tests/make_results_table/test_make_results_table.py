@@ -1,5 +1,3 @@
-import io
-
 from unittest.mock import patch, mock_open
 from libraries_io_scraper.models import Dependency
 from libraries_io_scraper.make_results_table import (

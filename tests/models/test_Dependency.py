@@ -50,9 +50,7 @@ class TestDependency:
             "libraries_io_scraper.models.get_project_sourcerank"
         )
         get_sourcerank_mock.ok.return_value = True
-        get_sourcerank_mock.return_value.json.return_value = (
-            numpy_sourcerank_return  # noqa: E501
-        )
+        get_sourcerank_mock.return_value.json.return_value = numpy_sourcerank_return  # noqa: E501
 
         dep = Dependency(name="numpy", version="1.20.0")
         dep.get_sourcerank("pypi")

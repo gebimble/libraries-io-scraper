@@ -42,8 +42,7 @@ class Dependency(BaseModel):
             breakpoint()
 
         return (
-            None if self.not_found else sum(
-                [x for x in self.sourcerank.values() if x])
+            None if self.not_found else sum([x for x in self.sourcerank.values() if x])
         )
 
     @computed_field

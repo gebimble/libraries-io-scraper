@@ -8,11 +8,11 @@ from libraries_io_scraper.make_results_table import make_results_table
 
 
 DEFAULT_OUTPUT = "dependencies.md"
-DEFAULT_TEMPLATE = "libraries_io_scraper/results_table/markdown_table_template.j2"
+DEFAULT_TEMPLATE = "src/libraries_io_scraper/results_table/markdown_table_template.j2"
 
 
 @click.group()
-def libioscrape():  # pragma: no cover
+def lios():  # pragma: no cover
     return None
 
 
@@ -32,7 +32,7 @@ def dependencies_to_markdown_report(
     return None
 
 
-@libioscrape.command()
+@lios.command()
 @click.argument("dependency_file")
 @click.option("-o", "--output", default=DEFAULT_OUTPUT)
 @click.option("-t", "--template", default=DEFAULT_TEMPLATE)
@@ -48,7 +48,7 @@ def py(dependency_file: str, output: str, template: str):
     return None
 
 
-@libioscrape.command()
+@lios.command()
 @click.argument("dependency_file")
 @click.option("-o", "--output", default=DEFAULT_OUTPUT)
 @click.option("-t", "--template", default=DEFAULT_TEMPLATE)

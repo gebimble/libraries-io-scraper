@@ -1,48 +1,43 @@
-[tool.poetry]
+[project]
 name = "libraries-io-scraper"
 version = "0.1.0"
-description = ""
-authors = ["Joe Beaver <joseph.beaver@gmail.com>"]
+description = "Simple software attestation made easy."
+authors = [{ name = "Joe Beaver", email = "joseph.beaver@gmail.com" }]
+dependencies = [
+  "requests>=2.31.0",
+  "pydantic-settings>=2.2.1",
+  "loguru>=0.7.2",
+  "pyyaml>=6.0.1",
+  "pydantic>=2.7.1",
+  "jinja2>=3.1.4",
+  "click>=8.1.7",
+  "types-pyyaml>=6.0.12.20240311",
+  "types-requests>=2.31.0.20240406",
+]
 readme = "README.md"
-packages = [{ include = "libraries_io_scraper", from = '.' }]
-
-[tool.poetry.dependencies]
-python = "^3.11"
-requests = "^2.31.0"
-pydantic-settings = "^2.0.2"
-loguru = "^0.7.0"
-pyyaml = "^6.0.1"
-pydantic = "^2.1.1"
-jinja2 = "^3.1.2"
-click = "^8.1.7"
-types-pyyaml = "^6.0.12.12"
-types-requests = "^2.31.0.10"
-
-
-[tool.poetry.group.dev.dependencies]
-python-dotenv = "^1.0.0"
-pydantic = "^2.1.1"
-ruff = "^0.0.280"
-ipython = "^8.14.0"
-pytest = "^7.4.0"
-pytest-mock = "^3.11.1"
-pytest-cov = "^4.1.0"
-mypy = "^1.6.1"
-pdbpp = "^0.10.3"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires-python = ">= 3.12"
 
 [project.scripts]
-lioscrape = "libraries_io_scraper.app.app:libioscraper"
+lios = "libraries_io_scraper.app.app:lios"
 
-[tool.pytest.ini_options]
-addopts = "--cov"
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.coverage.run]
-source = ["libraries_io_scraper"]
-omit = ["tests/*"]
+[tool.rye]
+managed = true
+dev-dependencies = [
+  "pdbpp>=0.10.3",
+  "ruff>=0.4.4",
+  "mypy>=1.10.0",
+  "python-dotenv>=1.0.1",
+  "pytest>=8.2.0",
+  "pytest-mock>=3.14.0",
+  "pytest-cov>=5.0.0",
+]
 
-[tool.coverage.report]
-show_missing = true
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/libraries_io_scraper"]
