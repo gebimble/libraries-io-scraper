@@ -81,7 +81,8 @@ class TestAppNPMGroup:
 
         deps_to_md_mock.return_value = None
 
-        _ = runner.invoke(npm, [fake_input])
+        _ = runner.invoke(lios, ["npm", fake_input])
+
         deps_to_md_mock.assert_called_with(
             dependency_file=fake_input,
             output="dependencies.md",
