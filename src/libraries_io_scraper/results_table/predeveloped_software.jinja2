@@ -1,0 +1,106 @@
+# Pre-Developed Software Qualification Report [^7_00_06]
+
+ 
+
+Review and approval of this document is provided via
+
+DevOps PR process.[^7_00_07]
+
+ 
+
+## Pedigree[^7_00_02]
+
+All pre-developed software listed below is deemed
+
+necessary for use in this development,
+
+and its suitability is deemed justified by
+
+the content of the proceeding table.[^7_00_01]
+
+ 
+
+| Package Name | Version | Description | GitHub URL | [SourceRank](https://docs.libraries.io/overview.html#sourcerank) | Shortfalls/Issues [^7_00_03] | Mitigation [^7_00_03] | Modifications [^7_00_05] |
+|--|--|--|--|--|--|--|--|
+{% for key, value in dependencies.items() %}{% for item in value %}| {{ item.name }} | {{ item.version }} | {{ item.information['description'] }} | {{ item.information['github_url'] }} | {{ item.sourcerank_score }} | {{ item.shortfalls }} |  |  |
+{% endfor %}{% endfor %}
+
+ 
+
+## Unused Functionality
+
+ 
+
+There is no unused functionality within the pre-developed software above
+
+that impacts on the required functionality of the pre-developed software.[^7_00_04]
+
+ 
+
+ 
+
+[^7_00_01]:
+
+    **[7.00.01 - MEDIUM - Mandatory]** - The suitability of the PDS functionality shall be documented
+
+    including mitigations where there are shortfalls.
+
+ 
+
+[^7_00_02]:
+
+    **[7.00.02 - MEDIUM - Recommended]** - The pedigree of the PDS shall be documented
+
+    including mitigations where there are shortfalls.
+
+ 
+
+[^7_00_03]:
+
+    **[7.00.03 - MEDIUM - Mandatory]** - Any known issues with the PDS
+
+    that would have an impact on the required functionality of the software
+
+    shall be documented, along with mitigations to address them.
+
+ 
+
+[^7_00_04]:
+
+    **[7.00.04 - HIGH - Recommended]** - Any unused functionality within the PDS
+
+    that would have an impact on the required functionality of the software
+
+    shall be documented, along with mitigations to address this.
+
+ 
+
+[^7_00_05]:
+
+    **[7.00.05 - LOW - Mandatory]** - Any modifications carried out to the PDS
+
+    shall be recorded so as to be auditable,
+
+    and shall be subject to the same activities, documentation, and controls
+
+    as the project's bespoke software development.
+
+ 
+
+[^7_00_06]:
+
+    **[7.00.06 - MEDIUM - Mandatory]** - The qualification evidance
+
+    and necessary mitigations shall be recorded
+
+    so as to be auditable.
+
+ 
+
+[^7_00_07]:
+
+    **[7.00.07 - MEDIUM - Mandatory]** - The qualitification evidence
+
+    and necessary mitigations shall be reviewed/approved
+
+    by a suitably experienced stakeholder.
