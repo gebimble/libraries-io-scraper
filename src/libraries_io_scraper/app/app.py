@@ -8,7 +8,9 @@ from libraries_io_scraper.make_results_table import make_results_table
 
 
 DEFAULT_OUTPUT = "dependencies.md"
-DEFAULT_TEMPLATE = "src/libraries_io_scraper/results_table/predeveloped_software.j2"
+DEFAULT_TEMPLATE = (
+    "src/libraries_io_scraper/results_table/predeveloped_software.j2"
+)
 
 
 @click.group()
@@ -17,7 +19,11 @@ def lios():  # pragma: no cover
 
 
 def dependencies_to_markdown_report(
-    dependency_file: str, output: str, template: str, parser: Callable, platform: str
+    dependency_file: str,
+    output: str,
+    template: str,
+    parser: Callable,
+    platform: str,
 ) -> None:
     dependencies = parser(dependencies=dependency_file)
 
@@ -59,14 +65,14 @@ def py(dependency_file: str, output: str, template: str, platform: str):
 
     An example `.yaml` file can be found in the project README.
     """
-    logger.debug(f"Executing with {dependency_file=}, {output=}, {template=}, {platform=}")
+    logger.debug(f"Executing with {dependency_file=}, {
+                 output=}, {template=}, {platform=}")
     dependencies_to_markdown_report(
         dependency_file=dependency_file,
         output=output,
         template=template,
         parser=python.parse_dependencies_file,
         platform=platform,
-        platform="pypi",
     )
     return None
 
@@ -77,7 +83,8 @@ def py(dependency_file: str, output: str, template: str, platform: str):
 @click.option("-t", "--template", default=DEFAULT_TEMPLATE)
 @click.option("-p", "--platform", default="npm")
 def npm(dependency_file: str, output: str, template: str, platform: str):
-    logger.debug(f"Executing with {dependency_file=}, {output=}, {template=}, {platform=}")
+    logger.debug(f"Executing with {dependency_file=}, {
+                 output=}, {template=}, {platform=}")
     dependencies_to_markdown_report(
         dependency_file=dependency_file,
         output=output,
