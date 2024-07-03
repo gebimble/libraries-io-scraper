@@ -32,7 +32,8 @@ def dependencies_to_markdown_report(
             dep.get_sourcerank(platform)
             dep.get_information(platform)
 
-    make_results_table(dependencies, output_file=output, template_file=template)
+    make_results_table(dependencies, output_file=output,
+                       template_file=template)
 
     return None
 
@@ -42,6 +43,28 @@ def dependencies_to_markdown_report(
 @click.option("-o", "--output", default=DEFAULT_OUTPUT)
 @click.option("-t", "--template", default=DEFAULT_TEMPLATE)
 def py(dependency_file: str, output: str, template: str):
+    """Parses a `python` "dependency file"
+    provided in a `.yaml` format.
+
+    The file should contain one or both of the outer keys:
+
+    - dependencies
+    - tools
+
+    and under those should contain an unordered list
+    of any number of dependencies in the format
+
+    <NAME>(<INEQUALIT><VERSION>)
+
+    where <INEQUALITY> and <VERSION>
+    are a pair of optional additions
+    (i.e. you can provide a bare dependency/tool name,
+    but it is advised that you don't
+    in order to retrieve information specific
+    to the version of the package you're using.
+
+    An example `.yaml` file can be found in the project README.
+    """
     logger.debug(f"Executing with {dependency_file=}, {output=}, {template=}")
     dependencies_to_markdown_report(
         dependency_file=dependency_file,

@@ -39,7 +39,7 @@ class TestMakeResultsTable:
         want = """
 | Name  | Version | Dependency Type | Rating |
 | --- | --- | --- | --- |
-| @types/node | 16.18.59 | dependency | 34 |
+| @types/node | 16.18.59 | dependency | None |
 """
         test_dependencies = [
             Dependency(name="@types/node", version="16.18.59"),
