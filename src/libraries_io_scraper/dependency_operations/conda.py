@@ -1,9 +1,9 @@
 from pathlib import Path
-
+import re
 from typing import TypedDict
 
 import yaml
-import re
+
 from libraries_io_scraper.dependency_operations import DependenciesLists
 from libraries_io_scraper.models import Dependency
 

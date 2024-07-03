@@ -1,6 +1,6 @@
 from click.testing import CliRunner
-from libraries_io_scraper.app.app import lios, py, npm, DEFAULT_TEMPLATE
-from libraries_io_scraper.dependency_operations import python, node
+from libraries_io_scraper.app.app import DEFAULT_TEMPLATE, lios, npm, py
+from libraries_io_scraper.dependency_operations import node, python
 
 
 class TestAppPyGroup:
@@ -25,7 +25,9 @@ class TestAppPyGroup:
             platform="conda",
         )
 
-    def test_expected_behaviour_without_output_specified(self, mocker, tmp_path):
+    def test_expected_behaviour_without_output_specified(
+        self, mocker, tmp_path
+    ):
         runner = CliRunner()
 
         fake_input = str(tmp_path / "fake_input.yaml")
@@ -70,7 +72,9 @@ class TestAppNPMGroup:
             platform="npm",
         )
 
-    def test_expected_behaviour_without_output_specified(self, mocker, tmp_path):
+    def test_expected_behaviour_without_output_specified(
+        self, mocker, tmp_path
+    ):
         runner = CliRunner()
 
         fake_input = str(tmp_path / "fake_input.yaml")

@@ -1,5 +1,5 @@
-from time import perf_counter, sleep
 import functools
+from time import perf_counter, sleep
 
 from loguru import logger  # type: ignore
 

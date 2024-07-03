@@ -1,7 +1,7 @@
-from libraries_io_scraper.models import Dependency
 from libraries_io_scraper.dependency_operations.conda import (
     parse_dependencies_file,
 )
+from libraries_io_scraper.models import Dependency
 
 
 class TestParseDependenciesFile:
@@ -25,7 +25,9 @@ class TestParseDependenciesFile:
             "tools": [],
         }
 
-    def test_it_parses_versioned_and_unversioned_dependencies(self, mocker, tmp_path):
+    def test_it_parses_versioned_and_unversioned_dependencies(
+        self, mocker, tmp_path
+    ):
         parsed_yaml_mock = mocker.patch("yaml.safe_load")
         parsed_yaml_mock.return_value = {
             "name": "aems_server",
