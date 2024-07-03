@@ -12,7 +12,7 @@ class TestParseDependenciesFile:
             "dependencies": ["python=3.10"],
         }
 
-        platform = "pypi"
+        platform = "conda"
         fake_file = tmp_path / "fake_file.yaml"
         fake_file.write_text("fake")
 
@@ -36,7 +36,7 @@ class TestParseDependenciesFile:
             ],
         }
 
-        platform = "pypi"
+        platform = "conda"
         fake_file = tmp_path / "fake_file.yaml"
         fake_file.write_text("fake")
 
@@ -65,7 +65,7 @@ class TestParseDependenciesFile:
             ],
         }
 
-        platform = "pypi"
+        platform = "conda"
         fake_file = tmp_path / "fake_file.yaml"
         fake_file.write_text("fake")
 
