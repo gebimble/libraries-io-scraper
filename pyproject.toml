@@ -41,3 +41,10 @@ allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/libraries_io_scraper"]
+
+[tool.ruff]
+line-length = 80
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+force-sort-within-sections = true

@@ -1,6 +1,5 @@
-import requests  # type: ignore
-
 from loguru import logger  # type: ignore
+import requests  # type: ignore
 
 from libraries_io_scraper.config import settings
 from libraries_io_scraper.wait_timer import wait_a_second

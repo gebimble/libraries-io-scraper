@@ -1,14 +1,16 @@
 from typing import Callable
 
-from loguru import logger
 import click
+from loguru import logger
 
 from libraries_io_scraper.dependency_operations import node, python
 from libraries_io_scraper.make_results_table import make_results_table
 
 
 DEFAULT_OUTPUT = "dependencies.md"
-DEFAULT_TEMPLATE = "src/libraries_io_scraper/results_table/markdown_table_template.j2"
+DEFAULT_TEMPLATE = (
+    "src/libraries_io_scraper/results_table/markdown_table_template.j2"
+)
 
 
 @click.group()
@@ -17,7 +19,11 @@ def lios():  # pragma: no cover
 
 
 def dependencies_to_markdown_report(
-    dependency_file: str, output: str, template: str, parser: Callable, platform: str
+    dependency_file: str,
+    output: str,
+    template: str,
+    parser: Callable,
+    platform: str,
 ) -> None:
     dependencies = parser(dependencies=dependency_file)
 

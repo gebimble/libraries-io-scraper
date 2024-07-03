@@ -1,10 +1,11 @@
-from unittest.mock import patch, mock_open
-from libraries_io_scraper.models import Dependency
+from unittest.mock import mock_open, patch
+
 from libraries_io_scraper.make_results_table import (
+    make_results_table,
     populate_jinja_template,
     write_template_to_file,
-    make_results_table,
 )
+from libraries_io_scraper.models import Dependency
 
 
 class TestMakeResultsTable:

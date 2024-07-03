@@ -1,9 +1,9 @@
 from pathlib import Path
-
+import re
 from typing import TypedDict
 
 import yaml
-import re
+
 from libraries_io_scraper.dependency_operations import DependenciesLists
 from libraries_io_scraper.models import Dependency
 
@@ -39,7 +39,8 @@ def parse_dependencies_file(dependencies: Path) -> DependenciesLists:
 
             deps_list.append(
                 Dependency(
-                    name=chunks[0], version=chunks[-1] if len(chunks) > 1 else ""
+                    name=chunks[0],
+                    version=chunks[-1] if len(chunks) > 1 else "",
                 )
             )
 
