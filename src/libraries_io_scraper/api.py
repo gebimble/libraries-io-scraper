@@ -16,10 +16,16 @@ def get_project_information(
         platform: str
 ) -> requests.Response:
     logger.debug(f"Getting project data for {name} hosted on {platform} from libraries.io")
+    if len(name.split("%3D")) > 1:
+        true_name = name.split("%3D")[0]
+        true_version = name.split("%3D")[1]
+        criteria = f"{platform}/{true_name}/{true_version}/dependencies"
+    else:
+        criteria = f"{platform}/{name}"
+        
+    url = BASE_URL + criteria + f"?api_key={settings.API_KEY}"
     return requests.get(
-        BASE_URL
-        + f"{platform}/{name}?"
-        + f"api_key={settings.API_KEY}"
+        url
         # fmt: on
     )
 
@@ -31,9 +37,14 @@ def get_project_sourcerank(
         platform: str
 ) -> requests.Response:
     logger.debug(f"Getting sourcerank data for {name} hosted on {platform} from libraries.io")
+    if len(name.split("%3D")) > 1:
+        true_name = name.split("%3D")[0]
+        criteria = f"{platform}/{true_name}"
+    else:
+        criteria = f"{platform}/{name}"
     return requests.get(
         BASE_URL
-        + f"{platform}/{name}/"
-        + f"sourcerank?api_key={settings.API_KEY}"
+        + criteria
+        + f"/sourcerank?api_key={settings.API_KEY}"
     )
 # fmt: on
