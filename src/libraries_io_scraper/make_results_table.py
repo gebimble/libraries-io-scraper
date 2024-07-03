@@ -5,7 +5,7 @@ from jinja2 import Template
 from libraries_io_scraper.dependency_operations import DependenciesLists
 
 DEFAULT_TEMPLATE = Path(
-    "src/libraries_io_scraper/results_table/markdown_table_template.j2"
+    "src/libraries_io_scraper/results_table/predeveloped_software.j2"
 )
 
 
@@ -26,6 +26,6 @@ def populate_jinja_template(
 
 
 def write_template_to_file(output: str, output_file: str = "dependencies.md"):
-    with open(output_file, "w") as f:
+    with open(output_file, "w", encoding="utf-8") as f:
         f.write(output)
     return None
