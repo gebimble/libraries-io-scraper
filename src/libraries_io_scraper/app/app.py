@@ -35,14 +35,15 @@ def dependencies_to_markdown_report(
 @click.argument("dependency_file")
 @click.option("-o", "--output", default=DEFAULT_OUTPUT)
 @click.option("-t", "--template", default=DEFAULT_TEMPLATE)
-def py(dependency_file: str, output: str, template: str):
-    logger.debug(f"Executing with {dependency_file=}, {output=}, {template=}")
+@click.option("-p", "--platform", default="pypi")
+def py(dependency_file: str, output: str, template: str, platform: str):
+    logger.debug(f"Executing with {dependency_file=}, {output=}, {template=}, {platform=}")
     dependencies_to_markdown_report(
         dependency_file=dependency_file,
         output=output,
         template=template,
         parser=python.parse_dependencies_file,
-        platform="conda",
+        platform=platform,
     )
     return None
 
