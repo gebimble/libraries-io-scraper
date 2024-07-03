@@ -1,23 +1,29 @@
 from typing import Callable
 
-from loguru import logger
 import click
+from loguru import logger
 
 from libraries_io_scraper.dependency_operations import node, python
 from libraries_io_scraper.make_results_table import make_results_table
 
 
 DEFAULT_OUTPUT = "dependencies.md"
-DEFAULT_TEMPLATE = "libraries_io_scraper/results_table/markdown_table_template.j2"
+DEFAULT_TEMPLATE = (
+    "src/libraries_io_scraper/results_table/markdown_table_template.j2"
+)
 
 
 @click.group()
-def libioscrape():  # pragma: no cover
+def lios():  # pragma: no cover
     return None
 
 
 def dependencies_to_markdown_report(
-    dependency_file: str, output: str, template: str, parser: Callable, platform: str
+    dependency_file: str,
+    output: str,
+    template: str,
+    parser: Callable,
+    platform: str,
 ) -> None:
     dependencies = parser(dependencies=dependency_file)
 
@@ -32,11 +38,33 @@ def dependencies_to_markdown_report(
     return None
 
 
-@libioscrape.command()
+@lios.command()
 @click.argument("dependency_file")
 @click.option("-o", "--output", default=DEFAULT_OUTPUT)
 @click.option("-t", "--template", default=DEFAULT_TEMPLATE)
 def py(dependency_file: str, output: str, template: str):
+    """Parses a `python` "dependency file"
+    provided in a `.yaml` format.
+
+    The file should contain one or both of the outer keys:
+
+    - dependencies
+    - tools
+
+    and under those should contain an unordered list
+    of any number of dependencies in the format
+
+    <NAME>(<INEQUALIT><VERSION>)
+
+    where <INEQUALITY> and <VERSION>
+    are a pair of optional additions
+    (i.e. you can provide a bare dependency/tool name,
+    but it is advised that you don't
+    in order to retrieve information specific
+    to the version of the package you're using.
+
+    An example `.yaml` file can be found in the project README.
+    """
     logger.debug(f"Executing with {dependency_file=}, {output=}, {template=}")
     dependencies_to_markdown_report(
         dependency_file=dependency_file,
@@ -48,7 +76,7 @@ def py(dependency_file: str, output: str, template: str):
     return None
 
 
-@libioscrape.command()
+@lios.command()
 @click.argument("dependency_file")
 @click.option("-o", "--output", default=DEFAULT_OUTPUT)
 @click.option("-t", "--template", default=DEFAULT_TEMPLATE)

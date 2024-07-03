@@ -1,5 +1,5 @@
-from time import perf_counter, sleep
 import functools
+from time import perf_counter, sleep
 
 from loguru import logger  # type: ignore
 
@@ -18,7 +18,9 @@ def wait_a_second(func):  # pragma: no cover
         logger.debug(f"Time elapsed: {elapsed}s.")
 
         if (remaining := WAIT_LENGTH - elapsed) > 0:
-            logger.debug(f"{remaining} remaining to prevent excessive requests.")  # noqa: E501
+            logger.debug(
+                f"{remaining} remaining to prevent excessive requests."
+            )  # noqa: E501
             sleep(remaining)
 
         return return_value

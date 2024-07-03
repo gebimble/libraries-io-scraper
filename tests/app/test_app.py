@@ -1,5 +1,6 @@
 from click.testing import CliRunner
-from libraries_io_scraper.app.app import py, npm
+from libraries_io_scraper.app.app import DEFAULT_TEMPLATE, lios, npm, py
+from libraries_io_scraper.dependency_operations import node, python
 
 
 class TestAppPyGroup:
@@ -12,23 +13,21 @@ class TestAppPyGroup:
         deps_to_md_mock = mocker.patch(
             "libraries_io_scraper.app.app.dependencies_to_markdown_report"
         )
-        py_mock = mocker.patch("libraries_io_scraper.app.app.py")
-
-        py_mock.return_value = None
         deps_to_md_mock.return_value = None
 
-        _ = runner.invoke(py, [fake_input, fake_output])
+        _ = runner.invoke(lios, ["py", fake_input, "-o", fake_output])
 
-        assert py_mock.called_with(
-            [
-                fake_input,
-                fake_output,
-            ]
+        deps_to_md_mock.assert_called_with(
+            dependency_file=fake_input,
+            output=fake_output,
+            template=DEFAULT_TEMPLATE,
+            parser=python.parse_dependencies_file,
+            platform="pypi",
         )
-        assert deps_to_md_mock.called_with(
-            [fake_input, fake_output, py, "pypi"])
 
-    def test_expected_behaviour_without_output_specified(self, mocker, tmp_path):
+    def test_expected_behaviour_without_output_specified(
+        self, mocker, tmp_path
+    ):
         runner = CliRunner()
 
         fake_input = str(tmp_path / "fake_input.yaml")
@@ -36,20 +35,17 @@ class TestAppPyGroup:
         deps_to_md_mock = mocker.patch(
             "libraries_io_scraper.app.app.dependencies_to_markdown_report"
         )
-        py_mock = mocker.patch("libraries_io_scraper.app.app.py")
 
-        py_mock.return_value = None
         deps_to_md_mock.return_value = None
 
-        _ = runner.invoke(py, [fake_input])
+        _ = runner.invoke(lios, ["py", fake_input])
 
-        assert py_mock.called_with(
-            [
-                fake_input,
-            ]
-        )
-        assert deps_to_md_mock.called_with(
-            [fake_input, r"./dependencies.md", py, "pypi"]
+        deps_to_md_mock.assert_called_with(
+            dependency_file=fake_input,
+            output="dependencies.md",
+            template=DEFAULT_TEMPLATE,
+            parser=python.parse_dependencies_file,
+            platform="pypi",
         )
 
 
@@ -63,23 +59,22 @@ class TestAppNPMGroup:
         deps_to_md_mock = mocker.patch(
             "libraries_io_scraper.app.app.dependencies_to_markdown_report"
         )
-        node_mock = mocker.patch("libraries_io_scraper.app.app.npm")
 
-        node_mock.return_value = None
         deps_to_md_mock.return_value = None
 
-        _ = runner.invoke(npm, [fake_input, fake_output])
+        _ = runner.invoke(lios, ["npm", fake_input, "-o", fake_output])
 
-        assert node_mock.called_with(
-            [
-                fake_input,
-                fake_output,
-            ]
+        deps_to_md_mock.assert_called_with(
+            dependency_file=fake_input,
+            output=fake_output,
+            template=DEFAULT_TEMPLATE,
+            parser=node.parse_dependencies_file,
+            platform="npm",
         )
-        assert deps_to_md_mock.called_with(
-            [fake_input, fake_output, npm, "npm"])
 
-    def test_expected_behaviour_without_output_specified(self, mocker, tmp_path):
+    def test_expected_behaviour_without_output_specified(
+        self, mocker, tmp_path
+    ):
         runner = CliRunner()
 
         fake_input = str(tmp_path / "fake_input.yaml")
@@ -87,16 +82,15 @@ class TestAppNPMGroup:
         deps_to_md_mock = mocker.patch(
             "libraries_io_scraper.app.app.dependencies_to_markdown_report"
         )
-        node_mock = mocker.patch("libraries_io_scraper.app.app.npm")
 
-        node_mock.return_value = None
         deps_to_md_mock.return_value = None
 
-        _ = runner.invoke(npm, [fake_input])
+        _ = runner.invoke(lios, ["npm", fake_input])
 
-        assert node_mock.called_with(
-            [
-                fake_input,
-            ]
+        deps_to_md_mock.assert_called_with(
+            dependency_file=fake_input,
+            output="dependencies.md",
+            template=DEFAULT_TEMPLATE,
+            parser=node.parse_dependencies_file,
+            platform="npm",
         )
-        assert deps_to_md_mock.called_with([fake_input, npm, "npm"])

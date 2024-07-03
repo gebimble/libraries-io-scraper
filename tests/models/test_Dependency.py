@@ -1,8 +1,8 @@
 from itertools import product
 
+from libraries_io_scraper.models import Dependency
 import pytest
 
-from libraries_io_scraper.models import Dependency
 from tests.conftest import RESERVED_CHARACTERS
 
 

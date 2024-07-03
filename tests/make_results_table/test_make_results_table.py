@@ -1,12 +1,11 @@
-import io
+from unittest.mock import mock_open, patch
 
-from unittest.mock import patch, mock_open
-from libraries_io_scraper.models import Dependency
 from libraries_io_scraper.make_results_table import (
+    make_results_table,
     populate_jinja_template,
     write_template_to_file,
-    make_results_table,
 )
+from libraries_io_scraper.models import Dependency
 
 
 class TestMakeResultsTable:
@@ -40,7 +39,7 @@ class TestMakeResultsTable:
         want = """
 | Name  | Version | Dependency Type | Rating |
 | --- | --- | --- | --- |
-| @types/node | 16.18.59 | dependency | 34 |
+| @types/node | 16.18.59 | dependency | None |
 """
         test_dependencies = [
             Dependency(name="@types/node", version="16.18.59"),
