@@ -72,8 +72,11 @@ class Dependency(BaseModel):
         if self.not_found:
             self.not_found_response()
             return None
-
-        response = api_call(self.safe_name, platform)
+        
+        if attribute == "sourcerank":
+            response = api_call(self.name, platform)
+        else:
+            response = api_call(self.name, platform, self.version)
 
         if not response.ok:  # type: ignore
             self.bad_response(response, platform)
