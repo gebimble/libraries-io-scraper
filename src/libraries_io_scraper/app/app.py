@@ -8,7 +8,7 @@ from libraries_io_scraper.make_results_table import make_results_table
 
 
 DEFAULT_OUTPUT = "dependencies.md"
-DEFAULT_TEMPLATE = "src/libraries_io_scraper/results_table/markdown_table_template.j2"
+DEFAULT_TEMPLATE = "src/libraries_io_scraper/results_table/predeveloped_software.j2"
 
 
 @click.group()
@@ -42,7 +42,7 @@ def py(dependency_file: str, output: str, template: str):
         output=output,
         template=template,
         parser=python.parse_dependencies_file,
-        platform="pypi",
+        platform="conda",
     )
     return None
 
