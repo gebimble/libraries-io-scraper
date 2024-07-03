@@ -12,7 +12,7 @@ class TestParseDependenciesFile:
             "dependencies": ["python=3.10"],
         }
 
-        platform = "pypi"
+        platform = "conda"
         fake_file = tmp_path / "fake_file.yaml"
         fake_file.write_text("fake")
 
@@ -38,7 +38,7 @@ class TestParseDependenciesFile:
             ],
         }
 
-        platform = "pypi"
+        platform = "conda"
         fake_file = tmp_path / "fake_file.yaml"
         fake_file.write_text("fake")
 
@@ -67,7 +67,7 @@ class TestParseDependenciesFile:
             ],
         }
 
-        platform = "pypi"
+        platform = "conda"
         fake_file = tmp_path / "fake_file.yaml"
         fake_file.write_text("fake")
 
@@ -78,9 +78,7 @@ class TestParseDependenciesFile:
                 Dependency(name="python", version="3.10", platform=platform),
                 Dependency(name="sqlalchemy", version="", platform=platform),
                 Dependency(name="pydantic", version="1.8.2", platform=platform),
-                Dependency(
-                    name="pydantic-sqlalchemy", version="", platform=platform
-                ),
+                Dependency(name="pydantic-sqlalchemy", version="", platform=platform),
             ],
             "tools": [],
         }

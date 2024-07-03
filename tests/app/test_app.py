@@ -22,7 +22,7 @@ class TestAppPyGroup:
             output=fake_output,
             template=DEFAULT_TEMPLATE,
             parser=python.parse_dependencies_file,
-            platform="pypi",
+            platform="conda",
         )
 
     def test_expected_behaviour_without_output_specified(
@@ -45,7 +45,7 @@ class TestAppPyGroup:
             output="dependencies.md",
             template=DEFAULT_TEMPLATE,
             parser=python.parse_dependencies_file,
-            platform="pypi",
+            platform="conda",
         )
 
 

@@ -14,7 +14,3 @@ Run like
 ```bash
 lios --help
 ```
-
-## Input Files
-
-

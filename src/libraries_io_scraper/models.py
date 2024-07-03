@@ -1,14 +1,11 @@
 from typing import Optional
 from urllib import parse
-
-from loguru import logger
-from pydantic import BaseModel, computed_field, field_validator
 from requests import Response
 
-from libraries_io_scraper.api import (
-    get_project_information,
-    get_project_sourcerank,
-)
+from pydantic import BaseModel, field_validator, computed_field
+from loguru import logger
+
+from libraries_io_scraper.api import get_project_sourcerank, get_project_information
 
 
 class Dependency(BaseModel):
@@ -45,9 +42,7 @@ class Dependency(BaseModel):
             breakpoint()
 
         return (
-            None
-            if self.not_found
-            else sum([x for x in self.sourcerank.values() if x])
+            None if self.not_found else sum([x for x in self.sourcerank.values() if x])
         )
 
     @computed_field
@@ -77,8 +72,11 @@ class Dependency(BaseModel):
         if self.not_found:
             self.not_found_response()
             return None
-
-        response = api_call(self.safe_name, platform)
+        
+        if attribute == "sourcerank":
+            response = api_call(self.name, platform)
+        else:
+            response = api_call(self.name, platform, self.version)
 
         if not response.ok:  # type: ignore
             self.bad_response(response, platform)
