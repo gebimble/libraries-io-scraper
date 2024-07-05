@@ -26,7 +26,7 @@ class SimpleResponse:
         return json.loads(self.content)
 
 
-def powershell_get(api_string: str) -> SimpleResponse:
+def powershell_curl(api_string: str) -> SimpleResponse:
     ret = subprocess.Popen(
         [
             "powershell.exe",
@@ -45,7 +45,7 @@ def powershell_get(api_string: str) -> SimpleResponse:
 
 def get_api_response(api_string: str) -> requests.Response | SimpleResponse:
     if settings.ON_SITE:
-        return powershell_get(api_string)
+        return powershell_curl(api_string)
     return requests.get(api_string)
 
 
