@@ -5,7 +5,10 @@ from requests import Response
 from pydantic import BaseModel, field_validator, computed_field
 from loguru import logger
 
-from libraries_io_scraper.api import get_project_sourcerank, get_project_information
+from libraries_io_scraper.api import (
+    get_project_sourcerank,
+    get_project_information,
+)
 
 
 class Dependency(BaseModel):
@@ -42,7 +45,9 @@ class Dependency(BaseModel):
             breakpoint()
 
         return (
-            None if self.not_found else sum([x for x in self.sourcerank.values() if x])
+            None
+            if self.not_found
+            else sum([x for x in self.sourcerank.values() if x])
         )
 
     @computed_field
@@ -72,7 +77,7 @@ class Dependency(BaseModel):
         if self.not_found:
             self.not_found_response()
             return None
-        
+
         if attribute == "sourcerank":
             response = api_call(self.name, platform)
         else:
