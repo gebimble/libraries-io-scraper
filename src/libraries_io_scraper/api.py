@@ -14,13 +14,13 @@ BASE_URL = "https://libraries.io/api/"
 
 
 class SimpleResponse:
-    def __init__(self, status_response: str, content: str):
-        self.status_response = int(status_response)
-        self.content = content
+    def __init__(self, status_code: str, json_content: str):
+        self.response = int(status_code)
+        self.content = json_content
 
     @property
     def ok(self):
-        return self.status_response
+        return self.response == 200
 
     def json(self):
         return json.loads(self.content)
@@ -30,17 +30,18 @@ def powershell_curl(api_string: str) -> SimpleResponse:
     ret = subprocess.Popen(
         [
             "powershell.exe",
-            f"$curl_content = Invoke-WebRequest -uri {api_string}",
-            "curl_content.StatusCode",
-            "curl_content.Content",
+            f"$curl_content=Invoke-WebRequest -uri {api_string};",
+            "curl_content.StatusCode;",
+            "curl_content.Content;",
         ],
         stdout=subprocess.PIPE,
-    ).stdout.reads()
+    )
 
-    status_response, *json_parts = ret.split("\n")
-    json_output = "".join(json_parts)
+    status_response, json_content = (
+        ret.stdout.read().decode("utf-8").strip().split("\r\n")
+    )
 
-    return SimpleResponse(status_response, json_output)
+    return SimpleResponse(status_response, json_content)
 
 
 def get_api_response(api_string: str) -> requests.Response | SimpleResponse:
