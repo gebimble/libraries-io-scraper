@@ -1,5 +1,5 @@
 import re
-from typing import TypedDict
+from typing import TypedDict, Optional
 
 from libraries_io_scraper.models import Dependency
 
@@ -14,13 +14,16 @@ class DependenciesLists(TypedDict):
     tools: list[Dependency]
 
 
-def parse_dependency_string(dependency: str) -> Dependency:
+def parse_dependency_string(
+    dependency: str, platform: Optional[str] = None
+) -> Dependency:
     match = SEMVER_PATTERN.match(dependency)
 
     if match:
         return Dependency(
             name=match.group(1),  # type: ignore[union-attr]
             version=match.group(3),  # type: ignore[union-attr]
+            platform=platform,
         )
 
-    return Dependency(name=dependency)
+    return Dependency(name=dependency, platform=platform)

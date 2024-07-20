@@ -45,19 +45,19 @@ class TestDependency:
             ]
         )
 
+    @pytest.mark.timeout(5)
     def test_get_sourcerank(self, mocker, numpy_sourcerank_return):
         get_sourcerank_mock = mocker.patch(
             "libraries_io_scraper.models.get_project_sourcerank"
         )
-        get_sourcerank_mock.ok.return_value = True
+        get_sourcerank_mock.return_value.ok.return_value = True
         get_sourcerank_mock.return_value.json.return_value = (
             numpy_sourcerank_return  # noqa: E501
         )
 
-        dep = Dependency(name="numpy", version="1.20.0")
-        dep.get_sourcerank("conda")
+        dep = Dependency(name="numpy", version="1.20.0", platform="conda")
 
         assert get_sourcerank_mock.return_value.ok
-        assert dep.sourcerank["follows_semver"] == 0
+        assert dep.sourcerank.follows_semver == 0
 
     # TODO write test for unhappy response

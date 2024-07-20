@@ -1,4 +1,5 @@
 from unittest.mock import patch, mock_open
+import pytest
 from libraries_io_scraper.models import Dependency
 
 from libraries_io_scraper.make_results_table import (
@@ -33,6 +34,7 @@ class TestMakeResultsTable:
             "some text"
         )
 
+    @pytest.mark.timeout(5)
     def test_model_api_integration(self):
         test_dependencies = [
             Dependency(name="@types/node", version="16.18.59"),
