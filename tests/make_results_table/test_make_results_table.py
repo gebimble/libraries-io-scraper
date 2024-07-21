@@ -12,12 +12,13 @@ from libraries_io_scraper.make_results_table import (
 JINJA_SUBSTRINGS = ("{{", "}}", "{%", "%}")
 
 
+@pytest.mark.timeout(5)
 class TestMakeResultsTable:
     def test_it_renders_a_valid_markdown_table(self):
         test_dependencies = [
-            Dependency(name="test", version="123"),
-            Dependency(name="test2", version="567"),
-            Dependency(name="@types/node", version="16.18.59"),
+            Dependency(name="test", version="123", platform="npm"),
+            Dependency(name="test2", version="567", platform="npm"),
+            Dependency(name="@types/node", version="16.18.59", platform="npm"),
         ]
         output = populate_jinja_template({"dependency": test_dependencies})
         for substring in JINJA_SUBSTRINGS:
@@ -37,10 +38,10 @@ class TestMakeResultsTable:
     @pytest.mark.timeout(5)
     def test_model_api_integration(self):
         test_dependencies = [
-            Dependency(name="@types/node", version="16.18.59"),
+            Dependency(name="@types/node", version="16.18.59", platform="npm"),
         ]
 
-        test_dependencies[0].get_sourcerank("npm")
+        test_dependencies[0].sourcerank
 
         output = populate_jinja_template({"dependency": test_dependencies})
         for substring in JINJA_SUBSTRINGS:
