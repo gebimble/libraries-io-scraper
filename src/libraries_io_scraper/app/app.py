@@ -32,7 +32,7 @@ def dependencies_to_markdown_report(
             dep.get_sourcerank(platform)
             dep.get_information(platform)
 
-    make_results_table(dependencies, output_file=output, template_file=template)
+    make_results_table(dependencies, output_file=output, template_file=template)  # noqa: E501
 
     return None
 

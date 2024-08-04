@@ -22,7 +22,9 @@ def parse_dependencies_file(dependencies: Path) -> DependenciesLists:
             for d in dependencies_json["dependencies"].keys()
         ],
         "tools": [
-            Dependency(name=d, version=dependencies_json["devDependencies"][str(d)])  # noqa: E501
+            Dependency(
+                name=d, version=dependencies_json["devDependencies"][str(d)]
+            )  # noqa: E501
             for d in dependencies_json["devDependencies"].keys()
         ],
     }

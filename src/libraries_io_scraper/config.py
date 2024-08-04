@@ -7,6 +7,7 @@ load_dotenv()
 
 class Settings(BaseSettings):
     API_KEY: str
+    ON_SITE: bool
 
     model_config = SettingsConfigDict(env_file=".env")
 

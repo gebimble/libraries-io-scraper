@@ -1,101 +1,81 @@
 # Software Development Tools Important to Quality[^7_01_06]
 
- 
+Review and approval of this document is provided via DevOps PR
+process.[^7_01_07]
 
-Review and approval of this document is provided via
+## Suitability[^7_01_02]
 
-DevOps PR process.[^7_01_07]
+All tools listed below are deemed suitable for use in the development of this
+project, and its suitability is deemed justified by the content of the
+proceeding table.[^7_01_01]
 
- 
+{% for key, value in dependencies.items() %}
+{% for item in value%}
+### {{ item.name }} - v{{ item.version }}
 
-## Suitability
+**URL**: {{ item.information.github_url }}
+**Platform**: {{ item.platform }}
+**Description**: {{ item.information.description }}
+**Sourcerank Score**: **{{ item.sourcerank_score }}**
 
-All pre-developed software listed below is deemed suitable
+#### Licenses
 
-for use in the development of this project.[^7_00_02]
+{% for license in item.information.licenses%}
+- {{ license }}
+{% endfor %}
 
- 
+#### Shortfalls[^7_01_03]
 
-| Package Name | Version | Description | GitHub URL | [Sourcerank](https://docs.libraries.io/overview.html#sourcerank) | Shortfalls/Issues[^7_00_02] | Mitigation[^7_00_03] | Modifications[^7_00_04] | Risks[^7_00_05] |
+{% if item.shortfalls|length == 0 %}
+None
+{% else %}
+{% for sf in item.shortfalls %}
+- {{ sf }}
+{% endfor %}
+{% endif %}
 
-|--|--|--|--|--|--|--|--|
+#### Risks[^7_01_05]
 
-{% for item in dependencies -%}
+None
 
-| {{ item.name }} | {{ item.version }} | {{ item.project_info['description'] }} | {{ item.project_info['github_url'] }} | {{ item.sourcerank_score }} | {{ item.shortfalls }} |  |  |  |
+{% endfor %}
+{% endfor %}
 
-{% endfor -%}
+### Mitigations[^7_01_03]
 
- 
+None
 
-## Unused Functionality
+### Alterations[^7_01_04]
 
- 
-
-There is no unused functionality within the pre-developed software above
-
-that impacts on the required functionality of the pre-developed software.[^7_00_04]
-
- 
-
- 
+None
 
 [^7_01_01]:
-
-    **[7.01.01 - HIGH - Mandatory]** - The pedigree of the tool shall be documented
-
-    including mitigations where there are shortfalls.
-
- 
+    **[7.01.01 - HIGH - Mandatory]** - The pedigree of the tool shall be
+    documented including mitigations where there are shortfalls.
 
 [^7_01_02]:
-
-    **[7.01.02 - HIGH - Recommended]** - The suitability of the tool functionality
-
-    shall be documented including mitigations where there are shortfalls.
-
- 
+    **[7.01.02 - HIGH - Recommended]** - The suitability of the tool
+    functionality shall be documented including mitigations where there are
+    shortfalls.
 
 [^7_01_03]:
-
-    **[7.01.03 - HIGH - Mandatory]** - Any known issues with the tool
-
-    that would have an impact on the required functionality of the software
-
-    shall be documented, along with mitigations to address them.
-
- 
+    **[7.01.03 - HIGH - Mandatory]** - Any known issues with the tool that
+    would have an impact on the required functionality of the software shall be
+    documented, along with mitigations to address them.
 
 [^7_01_04]:
-
     **[7.01.04 - HIGH - Mandatory]** - Any alteration carried out to the tool
-
     shall be recorded so as to be auditable.
 
- 
-
 [^7_01_05]:
-
-    **[7.01.05 - HIGH - Recommended]** - The inherent risks associated with the tool
-
-    shall be determined and mitigations recorded so as to be auditable.
-
- 
+    **[7.01.05 - HIGH - Recommended]** - The inherent risks associated with the
+    tool shall be determined and mitigations recorded so as to be auditable.
 
 [^7_01_06]:
-
-    **[7.01.06 - HIGH - Mandatory]** - The tool qualification evidance
-
-    and necessary mitigations shall be recorded
-
-    so as to be auditable.
-
- 
+    **[7.01.06 - HIGH - Mandatory]** - The tool qualification evidance and
+    necessary mitigations shall be recorded so as to be auditable.
 
 [^7_01_07]:
-
-    **[7.01.07 - HIGH - Mandatory]** - The tool qualitification evidence
-
-    and necessary mitigations shall be reviewed/approved
-
-    by a suitably experienced stakeholder.
+    **[7.01.07 - HIGH - Mandatory]** - The tool qualitification evidence and
+    necessary mitigations shall be reviewed/approved by a suitably experienced
+    stakeholder.
