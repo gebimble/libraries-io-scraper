@@ -11,6 +11,24 @@ from libraries_io_scraper.api import (
 )
 
 
+def bad_response(
+    name: str, version: str, platform: str, response: Response
+) -> None:
+    logger.warning(
+        f"Could not find {name}"
+        f" version: {version} on {platform}."
+        f" Message: {str(response)}"
+    )
+    return True
+
+    def not_found_response(self) -> None:
+        logger.warning(
+            f"{self.name} already established as unable to be found"
+            f" on libraries.io; skipping."
+        )
+        return None
+
+
 class Sourcerank(BaseModel):
     basic_info_present: int
     repository_present: int
@@ -107,7 +125,7 @@ class Dependency(BaseModel):
             response = get_project_sourcerank(self.safe_name, self.platform)
 
             if not response.ok:  # type: ignore
-                self.bad_response(response, self.platform)
+                self.not_found = True
                 return None
 
             self._sourcerank = Sourcerank.model_validate(response.json())
@@ -119,11 +137,12 @@ class Dependency(BaseModel):
     def information(self) -> Information:
         if self._information is None:
             response = get_project_information(
-                self.safe_name, self.platform, self.version
+                self.safe_name, self.platform, self.safe_version
             )
 
             if not response.ok:  # type: ignore
-                self.bad_response(response, self.platform)
+                self.not_found = True
+                bad_response(self.name, self.version, self.platform, response)
                 return None
 
             self._information = Sourcerank.model_validate(response.json())
@@ -143,19 +162,3 @@ class Dependency(BaseModel):
     @property
     def shortfalls(self) -> list[str]:
         return [k for k, v in self.sourcerank.model_dump().items() if v <= 0]
-
-    def bad_response(self, response: Response, platform: str) -> None:
-        logger.warning(
-            f"Could not find {self.name}"
-            f" version: {self.version} on {platform}."
-            f" Message: {str(response)}"
-        )
-        self.not_found = True
-        return None
-
-    def not_found_response(self) -> None:
-        logger.warning(
-            f"{self.name} already established as unable to be found"
-            f" on libraries.io; skipping."
-        )
-        return None
